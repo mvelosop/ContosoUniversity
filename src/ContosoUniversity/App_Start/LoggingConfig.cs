@@ -20,7 +20,7 @@ namespace ContosoUniversity.App_Start
 
 		public static ILogger RegisterLogger()
 		{
-			string logsFolder = ConfigurationManager.AppSettings["LogsFolder"];
+			string logsFolder = ConfigurationManager.AppSettings["logsFolder"];
 
 			logsFolder = logsFolder ?? Path.Combine(HttpRuntime.AppDomainAppPath, "logs");
 
