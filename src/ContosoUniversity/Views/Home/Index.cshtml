@@ -1,5 +1,45 @@
-﻿@{
+﻿@using ContosoUniversity.App_Start
+
+@{
     ViewBag.Title = "Home Page";
+
+    string[] sampleLogLines = null;
+    string[] logFiles = null;
+
+    string logFolder = Path.GetDirectoryName(Path.GetFullPath(LoggingConfig.LogFile));
+
+    bool logFileExists = File.Exists(LoggingConfig.LogFile);
+    bool logFolderExists = Directory.Exists(logFolder);
+
+    if (logFileExists)
+    {
+        using (var logFileStream = new FileStream(LoggingConfig.LogFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+        {
+            using (var reader = new StreamReader(logFileStream))
+            {
+                var lines = new List<string>();
+
+                while (!reader.EndOfStream)
+                {
+                    lines.Add(reader.ReadLine());
+                }
+
+                if (lines.Count > 10)
+                {
+                    sampleLogLines = lines.Skip(lines.Count - 10).ToArray();
+                }
+                else
+                {
+                    sampleLogLines = lines.ToArray();
+                }
+            }
+        }
+    }
+
+    if (logFolderExists)
+    {
+        logFiles = Directory.GetFiles(logFolder).Select(f => Path.GetFileName(f)).ToArray();
+    }
 }
 
 <div class="jumbotron">
@@ -23,5 +63,45 @@
         <h2>Download it</h2>
         <p>You can download the completed project from the Microsoft Code Gallery.</p>
         <p><a class="btn btn-default" href="http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8">Download &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>General parameters</h2>
+        <p>AppDomain: <strong>@HttpRuntime.AppDomainAppPath</strong></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Logging <small>(Set "logsFolder" in appSettings to relocate)</small></h2>
+        <p>LogFile: <strong>@LoggingConfig.LogFile</strong></p>
+        <ul>
+            @if (logFileExists)
+            {
+                foreach (var line in sampleLogLines)
+                {
+                    <li>@line</li>
+                }
+            }
+            else
+            {
+                <li><strong>LOG FILE DOES NOT EXIST</strong></li>
+            }
+        </ul>
+
+        <p>Log files at: <strong>@logFolder</strong></p>
+        <ul>
+            @if (logFolderExists)
+            {
+                foreach (var line in logFiles)
+                {
+                    <li>@line</li>
+                }
+            }
+            else
+            {
+                <li><strong>LOG FOLDER DOES NOT EXIST</strong></li>
+            }
+        </ul>
     </div>
 </div>
