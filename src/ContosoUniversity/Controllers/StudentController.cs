@@ -10,12 +10,16 @@ using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using PagedList;
 using System.Data.Entity.Infrastructure;
+using ContosoUniversity.App_Start;
+using Serilog;
 
 namespace ContosoUniversity.Controllers
 {
     public class StudentController : Controller
     {
         private SchoolContext db = new SchoolContext();
+
+        private static readonly ILogger Logger = LoggingConfig.Logger.ForContext<StudentController>();
 
         // GET: Student
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -130,15 +134,17 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost(int? id)
+        public ActionResult EditPost(Student student)
         {
-            if (id == null)
+            Logger.Information("Edit POST student: {@Student}", student);
+
+            if (student.ID == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var studentToUpdate = db.Students.Find(id);
-            if (TryUpdateModel(studentToUpdate, "",
-               new string[] { "LastName", "FirstMidName", "EnrollmentDate" }))
+
+            var studentToUpdate = db.Students.Find(student.ID);
+            if (TryUpdateModel(studentToUpdate))
             {
                 try
                 {

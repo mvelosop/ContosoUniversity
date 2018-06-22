@@ -9,11 +9,15 @@ using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using System.Data.Entity.Infrastructure;
+using ContosoUniversity.App_Start;
+using Serilog;
 
 namespace ContosoUniversity.Controllers
 {
     public class CourseController : Controller
     {
+        private static readonly ILogger Logger = LoggingConfig.Logger.ForContext<CourseController>();
+
         private SchoolContext db = new SchoolContext();
 
         // GET: Course
@@ -92,15 +96,20 @@ namespace ContosoUniversity.Controllers
 
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditPost(int? id)
+        public ActionResult EditPost(Course course)
         {
-            if (id == null)
+            if (course ==null ||  course.CourseID == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var courseToUpdate = db.Courses.Find(id);
-            if (TryUpdateModel(courseToUpdate, "",
-               new string[] { "Title", "Credits", "DepartmentID" }))
+
+            Logger.Information("Edit POST course: {@Course}", course);
+
+            var courseToUpdate = db.Courses.Find(course.CourseID);
+
+            Logger.Information("Edit DB courseToUpdate: {@Course}", courseToUpdate);
+
+            if (TryUpdateModel(courseToUpdate))
             {
                 try
                 {
