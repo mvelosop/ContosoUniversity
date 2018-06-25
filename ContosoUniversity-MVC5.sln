@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1B20813F-FC7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContosoUniversity", "src\ContosoUniversity\ContosoUniversity.csproj", "{264E21D6-4024-4A53-B1BE-1CD42F3348FE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{41C35C41-C40F-4743-B4CF-1058BE7DB046}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContosoUniversity.UnitTests", "test\ContosoUniversity.UnitTests\ContosoUniversity.UnitTests.csproj", "{145C792A-081A-495D-86F1-C155A311CA8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +21,17 @@ Global
 		{264E21D6-4024-4A53-B1BE-1CD42F3348FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{264E21D6-4024-4A53-B1BE-1CD42F3348FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{264E21D6-4024-4A53-B1BE-1CD42F3348FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{145C792A-081A-495D-86F1-C155A311CA8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{145C792A-081A-495D-86F1-C155A311CA8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{145C792A-081A-495D-86F1-C155A311CA8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{145C792A-081A-495D-86F1-C155A311CA8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{264E21D6-4024-4A53-B1BE-1CD42F3348FE} = {1B20813F-FC71-4D41-9DF8-FA82673F56AB}
+		{145C792A-081A-495D-86F1-C155A311CA8A} = {41C35C41-C40F-4743-B4CF-1058BE7DB046}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E78358E6-2B76-4C6D-8F4C-F30500883310}
