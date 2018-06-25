@@ -28,6 +28,7 @@ namespace ContosoUniversity.App_Start
 
 			Logger = new LoggerConfiguration()
 				.MinimumLevel.Debug()
+				.Destructure.ToMaximumDepth(3)
 				.WriteTo.Console()
 				.WriteTo.File(_logFile, rollingInterval: RollingInterval.Day, retainedFileCountLimit: 3)
 				.WriteTo.Seq("http://localhost:5341/")

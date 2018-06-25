@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Home Page";
 
+    const int logLineCount = 20;
+
     string[] sampleLogLines = null;
     string[] logFiles = null;
 
@@ -24,9 +26,9 @@
                     lines.Add(reader.ReadLine());
                 }
 
-                if (lines.Count > 10)
+                if (lines.Count > logLineCount)
                 {
-                    sampleLogLines = lines.Skip(lines.Count - 10).ToArray();
+                    sampleLogLines = lines.Skip(lines.Count - logLineCount).ToArray();
                 }
                 else
                 {
@@ -74,21 +76,6 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Logging <small>(Set "logsFolder" in appSettings to relocate)</small></h2>
-        <p>LogFile: <strong>@LoggingConfig.LogFile</strong></p>
-        <ul>
-            @if (logFileExists)
-            {
-                foreach (var line in sampleLogLines)
-                {
-                    <li>@line</li>
-                }
-            }
-            else
-            {
-                <li><strong>LOG FILE DOES NOT EXIST</strong></li>
-            }
-        </ul>
-
         <p>Log files at: <strong>@logFolder</strong></p>
         <ul>
             @if (logFolderExists)
@@ -101,6 +88,21 @@
             else
             {
                 <li><strong>LOG FOLDER DOES NOT EXIST</strong></li>
+            }
+        </ul>
+
+        <p>LogFile: <strong>@LoggingConfig.LogFile</strong></p>
+        <ul>
+            @if (logFileExists)
+            {
+                foreach (var line in sampleLogLines)
+                {
+                    <li>@line</li>
+                }
+            }
+            else
+            {
+                <li><strong>LOG FILE DOES NOT EXIST</strong></li>
             }
         </ul>
     </div>

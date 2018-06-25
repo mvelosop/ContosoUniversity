@@ -15,9 +15,10 @@ namespace ContosoUniversity.Logging
 		{
 			var logger = GetLogger(filterContext);
 
-			logger.Information("Executing action {Controller}.{Action} --> {Request}", 
+			logger.Information("Executing action {Controller}.{Action} --> [{RequestType}] {Request}",
 				filterContext.ActionDescriptor.ControllerDescriptor.ControllerName,
 				filterContext.ActionDescriptor.ActionName,
+				filterContext.HttpContext.Request.HttpMethod,
 				filterContext.HttpContext.Request.Url);
 		}
 

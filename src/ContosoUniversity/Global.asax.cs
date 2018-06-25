@@ -21,6 +21,9 @@ namespace ContosoUniversity
 
             var logger = LoggingConfig.GetLoggerForContext(typeof(MvcApplication));
 
+            logger.Information("-----");
+            logger.Information("Starting application");
+
             logger.Information("Registering areas");
             AreaRegistration.RegisterAllAreas();
 
